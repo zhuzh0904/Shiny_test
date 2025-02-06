@@ -1,5 +1,6 @@
 library(shiny)
 library(shinyWidgets)
+library(shinycssloaders)
 library(httr)
 library(jsonlite)
 library(base64enc)
@@ -40,7 +41,8 @@ server <- function(input, output, session) {
     response <- tryCatch({
       res <- POST(
         "https://api.groq.com/openai/v1/chat/completions",
-        add_headers(Authorization = paste("Bearer", api_key)),
+        add_headers(Authorization = paste("Bearer", "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")),
+        content_type_json(),
         body = toJSON(list(
           model = input$dropdown_model,
           messages = list(
@@ -50,7 +52,7 @@ server <- function(input, output, session) {
         ), auto_unbox = TRUE),
         encode = "json"
       )
-      content(res, as = "parsed")$choices[[1]]$message$content
+      content(res)$choices[[1]]$message$content
     }, error = function(e) paste("LLM Error:", e$message))
     
     updateTextAreaInput(session, "output", value = response)

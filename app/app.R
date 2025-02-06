@@ -41,7 +41,7 @@ server <- function(input, output, session) {
     response <- tryCatch({
       res <- POST(
         "https://api.groq.com/openai/v1/chat/completions",
-        add_headers(Authorization = paste("Bearer", "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")),
+        add_headers(Authorization = paste("Bearer", "api_key")),
         content_type_json(),
         body = toJSON(list(
           model = input$dropdown_model,
